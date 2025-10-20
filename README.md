@@ -6,3 +6,11 @@ This is my custom android app written in jetpack compose to explore Stytch authe
 
 ## How to use the Android SDK for your apps
 Check out repo here [stytch-android-sdk](https://github.com/stytchauth/stytch-android) 
+
+
+![Screenshot_20251020_114942.png](../../../../Downloads/Screenshot_20251020_114942.png)
+
+[Screen_recording_20251020_115131.webm](../../../../Downloads/Screen_recording_20251020_115131.webm)
+
+
+[Screen_recording_20251020_120329.webm](../../../../Downloads/Screen_recording_20251020_120329.webm)
