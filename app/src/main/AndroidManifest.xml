@@ -19,16 +19,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <!-- This will use Deep link for Stytch magic links -->
-            <intent-filter android:autoVerify="true">
+            <intent-filter android:label="@string/deep_link_title">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="redirect"
-                    android:scheme="stytch" />
+                    android:host="stytch-auth"
+                    android:scheme="my-app" />
             </intent-filter>
         </activity>
     </application>

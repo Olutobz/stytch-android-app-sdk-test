@@ -1,6 +1,7 @@
 package com.dev.olutoba.stytchandroidappsdktest.ui.screens
 
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.stytch.sdk.common.StytchResult
 import com.stytch.sdk.ui.b2c.StytchUI
+import com.stytch.sdk.ui.b2c.data.OAuthOptions
+import com.stytch.sdk.ui.b2c.data.OAuthProvider
+import com.stytch.sdk.ui.b2c.data.OTPMethods
+import com.stytch.sdk.ui.b2c.data.OTPOptions
+import com.stytch.sdk.ui.b2c.data.StytchProduct
+import com.stytch.sdk.ui.b2c.data.StytchProductConfig
 
 @Composable
 fun MainScreen(onLaunchHeadless: () -> Unit) {
@@ -51,13 +58,47 @@ private fun launchPrebuiltUI(activity: ComponentActivity?) {
     if (activity != null) {
         val stytchUI = StytchUI.Builder()
             .activity(activity)
+            .productConfig(
+                config = StytchProductConfig(
+                    products = listOf(
+                        StytchProduct.OAUTH,
+                        StytchProduct.EMAIL_MAGIC_LINKS,
+                        StytchProduct.OTP,
+                        StytchProduct.PASSWORDS,
+                    ),
+                    oAuthOptions = OAuthOptions(
+                        providers = listOf(
+                            OAuthProvider.GOOGLE,
+                            OAuthProvider.APPLE,
+                            OAuthProvider.GITHUB
+                        )
+                    ),
+                    otpOptions = OTPOptions(
+                        methods = listOf(OTPMethods.SMS, OTPMethods.WHATSAPP),
+                    )
+                )
+            )
             .onAuthenticated {
                 when (it) {
-                    is StytchResult.Success -> Log.d("Auth Success:", " ${it.value}")
-                    is StytchResult.Error -> Log.e("Auth Error:", "${it.exception}")
+                    is StytchResult.Success -> {
+                        Log.d("Auth Success:", " ${it.value}")
+                        Toast.makeText(
+                            activity,
+                            "Authentication Succeeded",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+
+                    is StytchResult.Error -> {
+                        Log.e("Auth Error:", it.exception.message)
+                        Toast.makeText(
+                            activity,
+                            it.exception.message,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
-            }
-            .build()
+            }.build()
         stytchUI.authenticate()
     }
 }

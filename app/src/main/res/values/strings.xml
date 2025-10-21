@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">StytchAndroidAppSDKTest</string>
+    <string name="deep_link_title">Stytch Deep Link Handler</string>
 </resources>
